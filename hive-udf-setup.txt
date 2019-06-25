@@ -1,0 +1,14 @@
+Steps to run Hive User define function:
+- Compile the Java User Defined Function:
+  javac -cp .:/usr/lib/hadoop/:/usr/lib/hbase/*:/usr/lib/hadoop-mapreduce/*:/usr/lib/hbase/lib/*:/usr/lib/hive/lib/* AutoIncrementUDF.java
+- Build Jar:
+  jar -cvf hive.udf.jar *.class
+- Hive 
+hive> add jar hive.udf.jar;
+Hive> create temporary function incr as 'AutoIncrementUDF';
+hive> CREATE TABLE t1 (id STRING, c1 STRING, c2 STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+hive> LOAD DATA LOCAL INPATH '/home/siva/Desktop/data.csv' OVERWRITE INTO TABLE t1;
+hive> SELECT * FROM t1;
+hive> CREATE TABLE increment_table1 (id INT, c1 STRING, c2 STRING, c3 STRING);
+hive> INSERT OVERWRITE TABLE increment_table1 SELECT incr() AS inc, id, c1, c2 FROM t1;
+hive> SELECT * FROM increment_table1;
