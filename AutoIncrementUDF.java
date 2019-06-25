@@ -1,4 +1,3 @@
-package com.ds.training.hive.udf;
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.hive.ql.udf.UDFType;
 /*
