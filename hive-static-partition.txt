@@ -1,0 +1,18 @@
+Files:
+kv2.txt
+11,aaa
+22,bbb
+
+kv3.txt
+33,ccc
+44,ddd
+
+
+Creates a table with data partitioned by particular column
+CREATE TABLE invites (foo INT, bar STRING) PARTITIONED BY (ds STRING) row format delimited fields terminated by ',';
+
+Load data to partition ds='2008-08-15':
+LOAD DATA LOCAL INPATH './examples/files/kv2.txt' OVERWRITE INTO TABLE invites PARTITION (ds='2008-08-15');
+
+Load data to partition ds='2008-08-08':
+LOAD DATA LOCAL INPATH './examples/files/kv3.txt' OVERWRITE INTO TABLE invites PARTITION (ds='2008-08-08');
