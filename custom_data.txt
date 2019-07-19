@@ -12,7 +12,7 @@ sal bigint,
 phones array<string>,
 diduction map<string,int>,
 address struct<city:string,state:string,pin:bigint>) 
-row format delimited fields terminated by ',’
+row format delimited fields terminated by ','
 collection items terminated by '$' 
 map keys terminated by '#'; 
 
