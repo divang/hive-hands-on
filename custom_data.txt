@@ -1,0 +1,29 @@
+Hive Custom data type:
+
+Data:
+1,abc,40000,9999$8888$777,pf#500$epf#200,hyd$ap$500001
+2,def,3000,6666$5555$3333,pf#500,bang$kar$600038
+
+Table schema:
+create table employeeInfo(
+id int,
+name string,
+sal bigint,
+phones array<string>,
+diduction map<string,int>,
+address struct<city:string,state:string,pin:bigint>) 
+row format delimited fields terminated by ',’
+collection items terminated by '$' 
+map keys terminated by '#'; 
+
+Load data:
+load data local inpath '/Users/administrator/Softwares/apache-hive-3.0.0-bin/myPractice/employeeInfo.txt' overwrite into table employeeInfo;
+
+Query:
+select * from employeeInfo;
+1	abc	40000	["9999","8888","777"]	{"pf":500,"epf":200}	{"city":"hyd","state":"ap","pin":500001}
+2	def	3000	["6666","5555","3333"]	{"pf":500}	{"city":"bang","state":"kar","pin":600038}
+
+hive> select diduction["pf"], diduction["epf"] from employeeInfo;
+500	200
+500	NULL
