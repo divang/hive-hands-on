@@ -1,0 +1,59 @@
+Hive Dynamic Parttion Example:
+
+-- Create a temp table
+set hive.enforce.bucketing = true;
+set hive.exec.dynamic.partition=true;
+set hive.exec.dynamic.partition.mode=nonstrict;
+CREATE TEMPORARY TABLE temp_user(	       
+firstname VARCHAR(64),       	
+lastname  VARCHAR(64),       	
+address   STRING,       	
+country   VARCHAR(64),       	
+city      VARCHAR(64),       	
+state     VARCHAR(64),       	
+post      STRING,       	
+phone1    VARCHAR(64),       	
+phone2    STRING,       	
+email     STRING,       	
+web       STRING       	)       	
+ROW FORMAT DELIMITED        		
+FIELDS TERMINATED BY ','       		
+LINES TERMINATED BY '\n'       
+STORED AS TEXTFILE; 
+LOAD DATA LOCAL INPATH '/home/user/user_table.txt' OVERWRITE INTO TABLE temp_user;
+
+
+-- Do dynamic parttion via temp table to actual table
+
+
+CREATE TABLE bucketed_user(       
+firstname VARCHAR(64),       	
+lastname  VARCHAR(64),       	
+address   STRING,       	
+city 	     VARCHAR(64),       
+state     VARCHAR(64),       	
+post      STRING,       	
+phone1    VARCHAR(64),       	
+phone2    STRING,       	
+email     STRING,       	
+web       STRING       	)      
+ COMMENT 'A bucketed sorted user table'       	
+PARTITIONED BY (country VARCHAR(64))      
+ CLUSTERED BY (state) SORTED BY (city) INTO 32 BUCKETS       	
+STORED AS SEQUENCEFILE;
+set hive.enforce.bucketing = true;
+
+------
+INSERT OVERWRITE TABLE bucketed_user PARTITION (country)       
+SELECT  firstname ,               		
+lastname  ,               		
+address   ,               
+city      ,               
+state     ,               		
+post      ,               		
+phone1    ,               		
+phone2    ,               		
+email     ,               		
+web       ,               		
+country           	
+FROM temp_user;
