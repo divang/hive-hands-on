@@ -31,15 +31,15 @@ id, name, dept, yoj
 4, sarthak, TP, 2010
 
 Partition above data into two files:
-tab1/clientdata/2009/file2
+tab1/clientdata/2009/data_2009
 1, sunny, SC, 2009
 2, animesh, HR, 2009
 
-tab1/clientdata/2010/file3
+tab1/clientdata/2010/data_2010
 3, sumeer, SC, 2010
 4, sarthak, TP, 2010
 
 Load data
-CREATE TABLE table_tab1 (id INT, name STRING, dept STRING, yoj INT) PARTITIONED BY (year STRING);
-LOAD DATA LOCAL INPATH tab1’/clientdata/2009/file2’OVERWRITE INTO TABLE studentTab PARTITION (year='2009');
-LOAD DATA LOCAL INPATH tab1’/clientdata/2010/file3’OVERWRITE INTO TABLE studentTab PARTITION (year='2010');
+CREATE TABLE student (id INT, name STRING, dept STRING, yoj INT) PARTITIONED BY (year STRING);
+LOAD DATA INPATH ’/user/hive/2009’ OVERWRITE INTO TABLE student PARTITION (year='2009');
+LOAD DATA INPATH ’/user/hive/2010’ OVERWRITE INTO TABLE student PARTITION (year='2010');
