@@ -17,7 +17,7 @@ collection items terminated by '$'
 map keys terminated by '#'; 
 
 Load data:
-load data local inpath '/Users/administrator/Softwares/apache-hive-3.0.0-bin/myPractice/employeeInfo.txt' overwrite into table employeeInfo;
+load data local inpath 'employeeInfo.txt' overwrite into table employeeInfo;
 
 Query:
 select * from employeeInfo;
