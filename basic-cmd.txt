@@ -1,5 +1,6 @@
 Basic table creation
-CREATE TABLE pokes (foo INT, bar STRING);
+CREATE TABLE pokes (foo INT, bar STRING) row format delimited fields terminated by ',';
+
 
 Creates a table with data partitioned by particular column
 CREATE TABLE invites (foo INT, bar STRING) PARTITIONED BY (ds STRING);
@@ -26,7 +27,7 @@ Show the list of columns of a Table
 DESCRIBE <table name>;
 
 More DML commands: Load data from file
-LOAD DATA LOCAL INPATH './examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
+LOAD DATA LOCAL INPATH '/home/cloudera/kv1.txt' OVERWRITE INTO TABLE pokes;
 
 SELECTS
 SELECT a.foo FROM invites;
