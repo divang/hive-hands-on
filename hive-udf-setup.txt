@@ -1,6 +1,6 @@
 Steps to run Hive User define function:
 - Compile the Java User Defined Function:
-  javac -cp .:/usr/lib/hadoop/:/usr/lib/hbase/*:/usr/lib/hadoop-mapreduce/*:/usr/lib/hbase/lib/*:/usr/lib/hive/lib/* AutoIncrementUDF.java
+  javac -cp .:/usr/lib/hadoop/*:/usr/lib/hbase/*:/usr/lib/hadoop-mapreduce/*:/usr/lib/hbase/lib/*:/usr/lib/hive/lib/* AutoIncrementUDF.java
 - Build Jar:
   jar -cvf hive.udf.jar *.class
 - Hive 
