@@ -1,0 +1,51 @@
+Basic table creation
+CREATE TABLE pokes (foo INT, bar STRING);
+
+Creates a table with data partitioned by particular column
+CREATE TABLE invites (foo INT, bar STRING) PARTITIONED BY (ds STRING);
+
+Altering and Dropping Tables:
+ALTER TABLE pokes  RENAME TO xyz;
+ALTER TABLE xyz ADD COLUMNS (new_col INT);
+ALTER TABLE invites REPLACE COLUMNS (foo int, bar string, baz int comment 'baz replaces new_col12' )
+ALTER TABLE invites REPLACE COLUMNS (foo int, bar string)
+
+Drop columns:
+ALTER TABLE invites REPLACE COLUMNS (foo INT COMMENT 'only keep the first column');
+
+Drop table
+DROP TABLE pokes;
+
+Show all tables
+SHOW TABLES;
+
+Show tables end with ‘s’
+SHOW TABLES '.*s';
+
+Show the list of columns of a Table
+DESCRIBE <table name>;
+
+More DML commands: Load data from file
+LOAD DATA LOCAL INPATH './examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
+
+SELECTS
+SELECT a.foo FROM invites;
+
+FILTERS
+SELECT a.foo FROM invites a WHERE a.ds='2008-08-15';
+
+Result store in HDFS:
+INSERT OVERWRITE DIRECTORY '/tmp/hdfs_out' SELECT a.* FROM invites a WHERE a.ds='2008-08-15';
+
+Group by:
+select a.bar, count(*) from invites a where a.foo > 0 group by a.bar;
+
+Output to a table (there are two ways to write query):
+FROM invites a INSERT OVERWRITE TABLE events SELECT a.bar, count(*) WHERE a.foo > 0 GROUP BY a.bar;
+INSERT OVERWRITE TABLE events SELECT a.bar, count(*) FROM invites a WHERE a.foo > 0 GROUP BY a.bar;
+
+Run from script file
+bin/hive -f myPractice/showTables.q
+
+Inline command
+bin/hive -e "show tables;"
