@@ -24,20 +24,20 @@ LOAD DATA LOCAL INPATH './examples/files/kv3.txt' OVERWRITE INTO TABLE invites P
 
 Data:
 tab1/clientdata/file1
-id, name, dept, yoj
-1, sunny, SC, 2009
-2, animesh, HR, 2009
-3, sumeer, SC, 2010
-4, sarthak, TP, 2010
+id, name,dept,yoj
+1, sunny,SC,2009
+2, animesh,HR,2009
+3, sumeer,SC,2010
+4, sarthak,TP,2010
 
 Partition above data into two files:
 tab1/clientdata/2009/data_2009
-1, sunny, SC, 2009
-2, animesh, HR, 2009
+1, sunny,SC,2009
+2, animesh,HR,2009
 
 tab1/clientdata/2010/data_2010
-3, sumeer, SC, 2010
-4, sarthak, TP, 2010
+3, sumeer,SC,2010
+4, sarthak,TP,2010
 
 Load data
 CREATE TABLE student (id INT, name STRING, dept STRING, yoj INT) row format delimited fields terminated by ',' PARTITIONED BY (year STRING);
