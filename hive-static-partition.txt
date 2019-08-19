@@ -40,6 +40,6 @@ tab1/clientdata/2010/data_2010
 4, sarthak, TP, 2010
 
 Load data
-CREATE TABLE student (id INT, name STRING, dept STRING, yoj INT) PARTITIONED BY (year STRING);
-LOAD DATA INPATH ’/user/hive/2009’ OVERWRITE INTO TABLE student PARTITION (year='2009');
-LOAD DATA INPATH ’/user/hive/2010’ OVERWRITE INTO TABLE student PARTITION (year='2010');
+CREATE TABLE student (id INT, name STRING, dept STRING, yoj INT) row format delimited fields terminated by ',' PARTITIONED BY (year STRING);
+LOAD DATA LOCAL INPATH '/home/cloudera/2009’ OVERWRITE INTO TABLE student PARTITION (year='2009');
+LOAD DATA LOCAL INPATH '/home/cloudera/2010’ OVERWRITE INTO TABLE student PARTITION (year='2010');
