@@ -20,7 +20,7 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','       		
 LINES TERMINATED BY '\n'       
 STORED AS TEXTFILE; 
-LOAD DATA LOCAL INPATH '/home/user/user_table.txt' OVERWRITE INTO TABLE temp_user;
+LOAD DATA LOCAL INPATH '/home/cloudera/user_data.txt' OVERWRITE INTO TABLE temp_user;
 
 
 -- Do dynamic parttion via temp table to actual table
